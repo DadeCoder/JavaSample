@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+    <script src="http://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+
+    <script type="text/javascript">
+
+        var url = 'http://localhost:8080/marcopolo';
+
+        var sock = new SockJS(url);
+
+        var stomp = Stomp.over(sock);
+
+        var payload = JSON.stringify({'message':'Marco!'});
+
+        stomp.connect('guest','guest',function(frame){
+            stomp.send("/marco",{},payload);
+        });
+
+    </script>
+
+</head>
+<body>
+
+<div class="container">
+</div>
+
+</body>
+</html>
