@@ -12,13 +12,10 @@ import java.sql.Connection;
  * Created by Dade on 2016/12/6.
  */
 @Component
-public class HunterUserDao implements BasicDao {
-
-    @Autowired
-    JdbcOperations jdbcTemplate;
+public class HunterUserDao extends BasicDao {
 
     public String getCount() {
-        return this.jdbcTemplate.queryForObject("select COUNT(*) from users", String.class);
+        return jdbcTemplate.queryForObject("select COUNT(*) from users", String.class);
     }
 
 }
