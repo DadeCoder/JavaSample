@@ -17,23 +17,26 @@ import java.sql.SQLException;
 public class SpringJDBCConfiguration {
 
     @Bean
-    public DataSource dataSource() throws SQLException {
-//        //DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
-//        //dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//        dataSource.setUrl("jdbc:mysql://localhost:3306/hunter");
-//        dataSource.setUsername("root");
-//        dataSource.setPassword("root");
-//        return dataSource;
+    public DataSource dataSource() {
 
-        String url = "jdbc:mysql://localhost/hunter?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String url = "jdbc:mysql://localhost/hunter?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false";
 
-        DataSource dataSource = new SimpleDriverDataSource(new Driver(), url, "root", "root");
+
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        //dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl(url);
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
         return dataSource;
+
+
+
+        //DataSource dataSource = new SimpleDriverDataSource(new Driver(), url, "root", "root");
+        //return dataSource;
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate() throws SQLException {
+    public JdbcTemplate jdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
         return jdbcTemplate;
