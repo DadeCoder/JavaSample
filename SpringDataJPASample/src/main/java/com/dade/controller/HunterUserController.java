@@ -5,6 +5,7 @@ import com.dade.domain.user.HunterUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,9 +24,15 @@ public class HunterUserController {
     HunterUserDao hunterUserDao;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @Transactional(rollbackFor = {IllegalArgumentException.class})
     public HunterUser save(@RequestBody HunterUser hunterUser){
         hunterUser.setId(null);
         hunterUser = hunterUserDao.save(hunterUser);
+
+        if (hunterUser.getName().equals("dade")){
+            throw new IllegalArgumentException("dade exist,data would rollback!");
+        }
+
         return hunterUser;
     }
 
