@@ -3,6 +3,8 @@ package com.dade.controller;
 import com.dade.dao.HunterUserDao;
 import com.dade.domain.user.HunterUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,7 @@ public class HunterUserController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @Transactional(rollbackFor = {IllegalArgumentException.class})
+    @CachePut(value = "hunter", key = "#hunterUser.id")
     public HunterUser save(@RequestBody HunterUser hunterUser){
         hunterUser.setId(null);
         hunterUser = hunterUserDao.save(hunterUser);
