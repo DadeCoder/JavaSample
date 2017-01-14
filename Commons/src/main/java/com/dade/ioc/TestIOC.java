@@ -8,8 +8,15 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class TestIOC {
 
+
+//    static{
+//        System.out.println("static!");
+//    }
+
     public static void main(String[] args) {
-        AbstractXmlApplicationContext
+//        System.out.println("main!");
+        SuperClass superClass = new BasicClass();
+        superClass.say();
     }
 
 }
